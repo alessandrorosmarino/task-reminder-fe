@@ -8,20 +8,17 @@
       <label for="reminderText">Reminder Text</label>
       <input type="text" id="reminderText" name="reminderText" v-model="reminderText"/>
 
-      <label for="monday">monday</label>
-      <input type="checkbox" id="monday" name="monday" value="monday" v-model="reminderWeekday"/>
-      <label for="tuesday">tuesday</label>
-      <input type="checkbox" id="tuesday" name="tuesday" value="tuesday" v-model="reminderWeekday"/>
-      <label for="wednesday">wednesday</label>
-      <input type="checkbox" id="wednesday" name="wednesday" value="wednesday" v-model="reminderWeekday"/>
-      <label for="thursday">thursday</label>
-      <input type="checkbox" id="thursday" name="thursday" value="thursday" v-model="reminderWeekday"/>
-      <label for="friday">friday</label>
-      <input type="checkbox" id="friday" name="friday" value="friday" v-model="reminderWeekday"/>
-      <label for="saturday">saturday</label>
-      <input type="checkbox" id="saturday" name="saturday" value="saturday" v-model="reminderWeekday"/>
-      <label for="sunday">sunday</label>
-      <input type="checkbox" id="sunday" name="sunday" value="sunday" v-model="reminderWeekday"/>
+      <label for="reminderWeekday">Reminder Weekday</label>
+      <select v-model="reminderWeekday" id="reminderWeekday" name="reminderWeekday" multiple>
+        <option value="" disabled>Select Option</option>
+        <option value="monday">Monday</option>
+        <option value="tuesday">Tuesday</option>
+        <option value="wednesday">Wednesday</option>
+        <option value="thursday">Thursday</option>
+        <option value="friday">Friday</option>
+        <option value="saturday">Saturday</option>
+        <option value="sunday">Sunday</option>
+      </select>
 
       <label for="isRecurring">Recurring Reminder</label>
       <input type="checkbox" id="isRecurring" name="isRecurring" v-model="isRecurring"/>
