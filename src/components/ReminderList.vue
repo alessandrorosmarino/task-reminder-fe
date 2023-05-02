@@ -1,50 +1,27 @@
 <template>
   <div>
     <h1>Reminders</h1>
-    <!--table>
-      <tr>
-        <th v-for="item in reminderKeys" :key="item">{{ item }}</th>
-        <th>Delete</th>
-        <th>Done</th>
-      </tr>
-      <tr v-for="reminder in reminders" :key="reminder.id">
-        <td v-for="val in reminder" :key="val">{{ val }}</td>
-        <td>
-          <button @click="deleteReminder(reminder.id)">Delete</button>
-        </td>
-        <td>
-          <button @click="updateReminder(reminder)">Toggle Done</button>
-        </td>
-      </tr>
-    </table-->
-
     <div class="grid">
-      <ReminderCard v-for="reminder in reminders" :key="reminder.id" :reminder="reminder"/>
+      <ReminderCard v-for="reminder in reminders" :key="reminder.id" :reminder="reminder" @updateData="getAllReminders"/>
     </div>
-    <button @click="getReminders">Get Reminders</button>
+    <button @click="getAllReminders">Get Reminders</button>
   </div>
 </template>
 
 <script setup>
   import { ref } from "vue";
   import ReminderCard from "@/components/ReminderCard";
+  import {getReminders} from "@/js/reminderService";
 
   const reminders = ref([]);
-  const reminderKeys = ref([]);
 
-  getReminders();
+  getAllReminders();
 
-  function getReminders() {
-    fetch("http://localhost:8080/reminders")
-        .then((response) => response.json())
-        .then((data) => {
-          reminders.value = data;
-          if (reminders.value.length > 0)
-          {
-            reminderKeys.value = Object.keys(reminders.value[0]);
-          }
-          return data;
-        });
+  function getAllReminders() {
+    getReminders( (response) => response.json(), (data) => {
+      reminders.value = data;
+      return data;
+    });
   }
 </script>
 

@@ -14,6 +14,10 @@
     <div class="flex description">
       {{ reminder.reminderText }}
     </div>
+    <div class="flex buttons">
+      <button @click="toggleDone(reminder)">Toggle Done</button>
+      <button @click="remove(reminder.id)">Delete</button>
+    </div>
     <div class="flex creationDate">
       <span>{{ reminder.creationDate }}</span>
     </div>
@@ -21,18 +25,22 @@
 </template>
 
 <script setup>
-import {defineProps} from "vue";
+import {defineProps,defineEmits} from "vue";
+import {deleteReminder,updateReminder} from "@/js/reminderService";
 
 defineProps({
   reminder: Object
 });
 
-function deleteReminder(id) {
-  //TODO: importare script in modo da poter referenziare il metodo e aggiornare la lista dei reminder dopo la cancellazione getReminders()
-  deleteEntity("reminders/", id, (response) => response.json(), (data) => console.log(data));
+let emits = defineEmits(["updateData"]);
+
+function remove(id) {
+  deleteReminder(id, () => {
+    emits("updateData");
+  }, () => null);
 }
 
-function updateReminder(reminder) {
+function toggleDone(reminder) {
   const json = {
     reminderText: reminder.reminderText,
     creationDate: reminder.creationDate,
@@ -41,8 +49,9 @@ function updateReminder(reminder) {
     reminderWeekday: reminder.reminderWeekday,
     done:!reminder.done
   };
-  //TODO: importare script in modo da poter referenziare il metodo e aggiornare la lista dei reminder dopo la modifica getReminders()
-  updateEntity("reminders/", reminder.id, (response) => response.json(), (data) => console.log(data), json);
+  updateReminder( reminder.id, () => {
+    emits("updateData");
+  }, () => null, json);
 }
 </script>
 
@@ -78,6 +87,12 @@ function updateReminder(reminder) {
   width: 100%;
   justify-content: flex-start;
   flex: 0 0 1em;
+}
+
+.buttons{
+  width: 100%;
+  justify-content: flex-end;
+  flex: 0 0 2em;
 }
 
 .description{

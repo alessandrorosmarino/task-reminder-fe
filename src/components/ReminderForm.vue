@@ -29,6 +29,7 @@
 
 <script setup>
 import {ref} from "vue";
+import {saveReminder} from "@/js/reminderService";
 
   const reminderText = ref("");
   const reminderTime = ref("");
@@ -44,19 +45,7 @@ import {ref} from "vue";
       reminderWeekday: reminderWeekday.value,
       done:false
     };
-    alert("sending: " + JSON.stringify(json));
-    const httpOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(json)
-    };
-    fetch("http://localhost:8080/reminders", httpOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      });
+    saveReminder((response) => response.json(), data => console.log(data), json);
   }
 
 </script>
