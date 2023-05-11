@@ -2,24 +2,24 @@ import {getEntity, saveEntity, deleteEntity, updateEntity} from "@/js/httpClient
 
 let basePath = "reminders";
 
-function saveReminder(addReminderResponse, addReminderData, json) {
-    saveEntity(basePath, addReminderResponse, addReminderData, json);
+function saveReminder(responseCallback, dataCallback, json) {
+    saveEntity(basePath, responseCallback, dataCallback, json);
 }
 
-function getReminders(getReminderResponse, getReminderData) {
-    getEntity(basePath, getReminderResponse, getReminderData);
+function getReminders(responseCallback, dataCallback) {
+    getEntity(basePath, responseCallback, dataCallback);
 }
 
-function getReminder(id, getReminderResponse, getReminderData) {
-    getEntity(joinPaths(basePath,id), getReminderResponse, getReminderData);
+function getReminder(id, responseCallback, dataCallback) {
+    getEntity(joinPaths(basePath,id), responseCallback, dataCallback);
 }
 
-function deleteReminder(id, deleteReminderResponse, deleteReminderData) {
-    deleteEntity(joinPaths(basePath,id), deleteReminderResponse, deleteReminderData);
+function deleteReminder(id, responseCallback, dataCallback) {
+    deleteEntity(joinPaths(basePath,id), responseCallback, dataCallback);
 }
 
-function updateReminder(id, updateReminderResponse, updateReminderData, json) {
-    updateEntity(joinPaths(basePath,id), updateReminderResponse, updateReminderData, json);
+function updateReminder(id, responseCallback, dataCallback, json) {
+    updateEntity(joinPaths(basePath,id), responseCallback, dataCallback, json);
 }
 
 function joinPaths() {
