@@ -423,7 +423,6 @@ form{
     --form-input-border-color: var(--text-color);
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
 }
 
 form > .input-group {
