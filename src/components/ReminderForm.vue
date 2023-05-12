@@ -1,37 +1,35 @@
 <template>
-  <div>
-    <form>
-      <h1>Reminder Form</h1>
-      <div class="input-group">
-        <label for="reminderTime">Alert Time</label>
-        <input type="time" id="reminderTime" name="reminderTime" v-model="reminderTime"/>
-      </div>
-      <div class="input-group">
-        <label for="reminderText">Description</label>
-        <textarea id="reminderText" name="reminderText" v-model="reminderText"/>
-      </div>
-      <div class="input-group">
-        <label for="reminderWeekday">Days of the week</label>
-        <select v-model="reminderWeekday" id="reminderWeekday" name="reminderWeekday">
-          <option value="" disabled>Select Option</option>
-          <option value="monday">Monday</option>
-          <option value="tuesday">Tuesday</option>
-          <option value="wednesday">Wednesday</option>
-          <option value="thursday">Thursday</option>
-          <option value="friday">Friday</option>
-          <option value="saturday">Saturday</option>
-          <option value="sunday">Sunday</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label for="isRecurring">Recurring every week?</label>
-        <input type="checkbox" id="isRecurring" name="isRecurring" v-model="isRecurring"/>
-      </div>
-      <div class="button-group-end">
-        <button @click="addReminder">Add</button>
-      </div>
-    </form>
-  </div>
+  <form class="reminderForm">
+    <h1>Reminder Form</h1>
+    <div class="input-group">
+      <label for="reminderTime">Alert Time</label>
+      <input type="time" id="reminderTime" name="reminderTime" v-model="reminderTime"/>
+    </div>
+    <div class="input-group">
+      <label for="reminderText">Description</label>
+      <textarea id="reminderText" name="reminderText" v-model="reminderText"/>
+    </div>
+    <div class="input-group">
+      <label for="reminderWeekday">Days of the week</label>
+      <select v-model="reminderWeekday" id="reminderWeekday" name="reminderWeekday">
+        <option value="" disabled>Select Option</option>
+        <option value="monday">Monday</option>
+        <option value="tuesday">Tuesday</option>
+        <option value="wednesday">Wednesday</option>
+        <option value="thursday">Thursday</option>
+        <option value="friday">Friday</option>
+        <option value="saturday">Saturday</option>
+        <option value="sunday">Sunday</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="isRecurring">Recurring every week?</label>
+      <input type="checkbox" id="isRecurring" name="isRecurring" v-model="isRecurring"/>
+    </div>
+    <div class="button-group-end">
+      <button @click="addReminder">Add</button>
+    </div>
+  </form>
 </template>
 
 <script setup>
@@ -59,4 +57,10 @@ import {saveReminder} from "@/js/reminderService";
 
 <style scoped>
 
+.reminderForm{
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
 </style>
