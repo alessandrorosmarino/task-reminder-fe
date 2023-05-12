@@ -1,16 +1,24 @@
 <template>
-  <div>
-    <h1>Reminders</h1>
-      <div class="grid" v-for="reminder in reminders" :key="reminder.id">
-        <span>{{ reminder.reminderTime }}</span>
-        <span>{{ reminder.reminderText}}</span>
-        <button v-on:click="openDialog(reminder.id)">Details</button>
+  <table>
+    <caption>Reminders</caption>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Text</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="reminder in reminders" :key="reminder.id">
+        <td>{{ reminder.reminderTime }}</td>
+        <td>{{ reminder.reminderText}}</td>
+        <td><button v-on:click="openDialog(reminder.id)">Details</button></td>
         <dialog v-bind:id="'reminder' + reminder.id">
           <ReminderCard :reminder="reminder" @updateData="getAllReminders"/>
         </dialog>
-      </div>
-    <button @click="getAllReminders">Get Reminders</button>
-  </div>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script setup>
@@ -36,13 +44,62 @@
 </script>
 
 <style scoped>
-  .grid {
-    display: grid;
-    grid-template-columns: 100px 300px 100px 1fr;
+
+  table {
+    --border-radius: 10px;
+    width: 100%;
+    border-spacing: 0;
   }
 
-  .grid > span {
-    border: 1px solid black;
+  table > caption{
+    font-size: 2em;
+    font-weight: bold;
+    padding: 5px;
+    color: var(--text-color);
+  }
+  thead > tr > th:first-of-type{
+    background-color: var(--primary-color);
+    color: var(--text-color-contrast);
+    border-top-left-radius: var(--border-radius);
+  }
+
+  thead > tr > th{
+    background-color: var(--primary-color);
+    color: var(--text-color-contrast);
+    border: 1px solid var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+  }
+
+  thead > tr > th:last-of-type{
+    background-color: var(--primary-color);
+    color: var(--text-color-contrast);
+    border-top-right-radius: var(--border-radius);
+  }
+
+  tbody > tr > td:first-of-type{
+    border-left: 1px solid var(--primary-color);
+  }
+
+  tbody > tr > td:not(:first-of-type):not(:last-of-type){
+    border-left: 1px solid var(--primary-color);
+    border-right: 1px solid var(--primary-color);
+  }
+
+  tbody > tr > td:last-of-type{
+    border-right: 1px solid var(--primary-color);
+  }
+
+  tbody > tr:last-of-type > td:first-of-type{
+    border-bottom-left-radius: var(--border-radius);
+  }
+
+  tbody > tr > td{
+    border-bottom: 1px solid var(--primary-color);
+  }
+  tbody > tr:last-of-type > td:last-of-type{
+    border-bottom-right-radius: var(--border-radius);
   }
 
   dialog {

@@ -3,25 +3,25 @@
     <div class="flex close">
       <div class="flex vertical">
         <span>{{ reminder.reminderTime.substring(0,5) }}</span>
-        <span v-bind:class="(reminder.done ? '' : 'in') +'complete'"> {{reminder.done ? 'C' : 'Not c'}}ompleted </span>
+        <span v-bind:class="getSuccessOrDangerClass(reminder.done)"> {{reminder.done ? 'C' : 'Not c'}}ompleted </span>
+        <span v-if="reminder.recurring">Rescheduled Every Week</span>
       </div>
       <form>
-        <button formmethod="dialog" class="close-button">x</button>
+        <button formmethod="dialog" >x</button>
       </form>
     </div>
-    <div class="flex days">
-      <span v-if="reminder.recurring">Every</span>
-      <span class="day" v-for="weekday in weekdays" :key="weekday"
-            v-bind:class="(weekday.scheduled.value?'':'not-') +'scheduled'">
+    <div class="days button-group-end">
+      <button v-for="weekday in weekdays" :key="weekday"
+            v-bind:class="getSuccessOrDangerButtonClass(weekday.scheduled.value)">
         {{ weekday.placeholder }}
-      </span>
+      </button>
     </div>
     <div class="flex description">
       {{ reminder.reminderText }}
     </div>
-    <div class="flex buttons">
-      <button @click="toggleDone(reminder)">Toggle Done</button>
-      <button @click="remove(reminder.id)">Delete</button>
+    <div class="buttons button-group">
+      <button class="button-success" @click="toggleDone(reminder)">Toggle Done</button>
+      <button class="button-danger" @click="remove(reminder.id)">Delete</button>
     </div>
   </div>
 </template>
@@ -77,40 +77,29 @@ function setWeekdays(reminder) {
     }
   });
 }
+
+function getSuccessOrDangerClass(control) {
+  return (control ? "success" : "danger") + "-color";
+}
+function getSuccessOrDangerButtonClass(control) {
+  return "button-" + (control ? "success" : "danger");
+}
 </script>
 
 <style scoped>
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  --primary-color: #0B0014;
-  --secondary-color: #F5E9E2;
-  --accent-color: #E3B5A4;
+.card {
+  width: 250px;
+  height: 400px;
+  align-items: center;
+  border: 1px solid var(--primary-color);
+  background-color: var(--primary-color);
+  border-radius: 20px;
+  color: var(--text-color);
 }
 
-.complete{
-  color: green;
-}
-
-.incomplete{
-  color: red;
-}
-
-.scheduled{
-  color: var(--secondary-color);
-}
-
-.not-scheduled{
-  color: #464341;
-}
-
-.day{
-  margin: 0 1px;
-  padding: 0 2px;
-  border: 1px solid var(--secondary-color);
-  border-radius: 5px;
+.card > div{
+  width: 100%;
 }
 
 .close{
@@ -119,22 +108,12 @@ function setWeekdays(reminder) {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   padding: 10px;
-  border-bottom: 1px solid var(--secondary-color);
-}
-
-.close-button{
-  width: 20px;
-  height: 20px;
-  font-family: monospace;
-  font-weight: bold;
-  line-height: 0;
+  color: var(--text-color-contrast);
 }
 
 .days{
-  justify-content: flex-end;
-  align-items: center;
   flex: 0 0 2em;
-  border-bottom: 1px solid var(--secondary-color);
+  background-color: var(--primary-color-contrast);
 }
 
 .buttons{
@@ -143,38 +122,13 @@ function setWeekdays(reminder) {
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   padding: 10px;
-  border-top: 1px solid var(--secondary-color);
 }
 
 .description{
   flex: 1 1 auto;
   justify-content: center;
   padding: 5px;
+  background-color: var(--primary-color-contrast);
 }
 
-.card {
-  width: 250px;
-  height: 400px;
-  align-items: center;
-  background-color: transparent;
-  color: var(--secondary-color);
-}
-
-.card > div{
-  width: 100%;
-  background-color: var(--primary-color);
-}
-
-button{
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-  border: 0;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 5px;
-  cursor: pointer;
-}
-button:active{
-  background-color: var(--accent-color);
-}
 </style>
