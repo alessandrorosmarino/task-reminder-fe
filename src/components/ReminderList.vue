@@ -1,5 +1,5 @@
 <template>
-  <table>
+  <table class="table-primary">
     <caption>Reminders</caption>
     <thead>
       <tr>
@@ -44,64 +44,6 @@
 </script>
 
 <style scoped>
-
-  table {
-    --border-radius: 10px;
-    width: 100%;
-    border-spacing: 0;
-  }
-
-  table > caption{
-    font-size: 2em;
-    font-weight: bold;
-    padding: 5px;
-    color: var(--text-color);
-  }
-  thead > tr > th:first-of-type{
-    background-color: var(--primary-color);
-    color: var(--text-color-contrast);
-    border-top-left-radius: var(--border-radius);
-  }
-
-  thead > tr > th{
-    background-color: var(--primary-color);
-    color: var(--text-color-contrast);
-    border: 1px solid var(--primary-color);
-    font-weight: bold;
-    font-size: 1.2em;
-    text-align: center;
-  }
-
-  thead > tr > th:last-of-type{
-    background-color: var(--primary-color);
-    color: var(--text-color-contrast);
-    border-top-right-radius: var(--border-radius);
-  }
-
-  tbody > tr > td:first-of-type{
-    border-left: 1px solid var(--primary-color);
-  }
-
-  tbody > tr > td:not(:first-of-type):not(:last-of-type){
-    border-left: 1px solid var(--primary-color);
-    border-right: 1px solid var(--primary-color);
-  }
-
-  tbody > tr > td:last-of-type{
-    border-right: 1px solid var(--primary-color);
-  }
-
-  tbody > tr:last-of-type > td:first-of-type{
-    border-bottom-left-radius: var(--border-radius);
-  }
-
-  tbody > tr > td{
-    border-bottom: 1px solid var(--primary-color);
-  }
-  tbody > tr:last-of-type > td:last-of-type{
-    border-bottom-right-radius: var(--border-radius);
-  }
-
   dialog {
     border-radius: 30px;
     border: 0;

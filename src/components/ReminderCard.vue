@@ -19,7 +19,7 @@
     <div class="flex description">
       {{ reminder.reminderText }}
     </div>
-    <div class="buttons button-group">
+    <div class="buttons button-group-end">
       <button class="button-success" @click="toggleDone(reminder)">Toggle Done</button>
       <button class="button-danger" @click="remove(reminder.id)">Delete</button>
     </div>
@@ -117,7 +117,6 @@ function getSuccessOrDangerButtonClass(control) {
 }
 
 .buttons{
-  justify-content: flex-end;
   flex: 0 0 2em;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
