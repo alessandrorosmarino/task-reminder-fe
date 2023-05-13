@@ -11,7 +11,7 @@
       </form>
     </div>
     <div class="days button-group-end">
-      <button v-for="weekday in weekdays" :key="weekday"
+      <button v-for="weekday in weekdays" :key="weekday" v-bind:value="weekday.day" v-on:click="toggleDay(reminder,weekday.day)"
             v-bind:class="getSuccessOrDangerButtonClass(weekday.scheduled.value)">
         {{ weekday.placeholder }}
       </button>
@@ -68,7 +68,31 @@ function toggleDone(reminder) {
   }, () => null, json);
 }
 
+function toggleDay(reminder,day) {
+  let found = reminder.reminderWeekday.find((weekday) => weekday === day);
+  if(found !== undefined) {
+    reminder.reminderWeekday = reminder.reminderWeekday.filter((weekday) => weekday !== day);
+  } else {
+    reminder.reminderWeekday.push(day);
+  }
+  const json = {
+    reminderText: reminder.reminderText,
+    creationDate: reminder.creationDate,
+    reminderTime: reminder.reminderTime,
+    recurring: reminder.recurring,
+    reminderWeekday: reminder.reminderWeekday,
+    done: reminder.done
+  };
+  updateReminder( reminder.id, () => {
+    emits("updateData");
+    setWeekdays(reminder);
+  }, () => null, json);
+}
+
 function setWeekdays(reminder) {
+  weekdays.forEach((weekday) => {
+    weekday.scheduled.value = false;
+  });
   reminder.reminderWeekday.forEach((day) => {
     for (const weekday of weekdays) {
       if (weekday.day === day) {

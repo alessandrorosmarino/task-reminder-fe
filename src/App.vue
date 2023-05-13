@@ -1,6 +1,6 @@
 <template>
-  <ReminderList/>
   <ReminderForm/>
+  <ReminderList/>
 </template>
 
 <script setup>
