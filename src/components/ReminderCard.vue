@@ -60,7 +60,7 @@ function toggleDone(reminder) {
     creationDate: reminder.creationDate,
     reminderTime: reminder.reminderTime,
     recurring: reminder.recurring,
-    reminderWeekday: reminder.reminderWeekday,
+    reminderWeekday: reminder.reminderWeekday.join(","),
     done:!reminder.done
   };
   updateReminder( reminder.id, () => {
@@ -80,7 +80,7 @@ function toggleDay(reminder,day) {
     creationDate: reminder.creationDate,
     reminderTime: reminder.reminderTime,
     recurring: reminder.recurring,
-    reminderWeekday: reminder.reminderWeekday,
+    reminderWeekday: reminder.reminderWeekday.join(","),
     done: reminder.done
   };
   updateReminder( reminder.id, () => {

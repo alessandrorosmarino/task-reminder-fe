@@ -47,7 +47,7 @@ import {saveReminder} from "@/js/reminderService";
       creationDate: new Date(),
       reminderTime: reminderTime.value,
       recurring: isRecurring.value,
-      reminderWeekday: reminderWeekday.value,
+      reminderWeekday: reminderWeekday.value.join(""),
       done:false
     };
     saveReminder((response) => response.json(), data => console.log(data), json);
