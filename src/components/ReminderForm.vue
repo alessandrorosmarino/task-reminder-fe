@@ -11,7 +11,7 @@
     </div>
     <div class="input-group">
       <label for="reminderWeekday">Days of the week</label>
-      <select v-model="reminderWeekday" id="reminderWeekday" name="reminderWeekday">
+      <select v-model="reminderWeekday" id="reminderWeekday" name="reminderWeekday" multiple>
         <option value="" disabled>Select Option</option>
         <option value="monday">Monday</option>
         <option value="tuesday">Tuesday</option>
