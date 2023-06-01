@@ -1,7 +1,16 @@
 async function urlBuilder(relativeUrl) {
     let ip;
-    await fetch("../ip.json").then((response) => response.json())
-        .then((data) => ip = data.ip);
+    await fetch("../ip.json").then((response) => {
+        let json = response.json();
+        console.log(json);
+        alert("JSON: " + json);
+        return json;
+    })
+        .then((data) => {
+            console.log(data.ip);
+            alert("DATA:" + data.ip);
+            ip = data.ip
+        });
     console.log(ip);
     return "http://" + ip + "/" + relativeUrl;
 }
