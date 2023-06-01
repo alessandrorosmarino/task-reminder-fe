@@ -1,18 +1,5 @@
-async function urlBuilder(relativeUrl) {
-    let ip;
-    await fetch("../ip.json").then((response) => {
-        let json = response.json();
-        console.log(json);
-        alert("JSON: " + json);
-        return json;
-    })
-        .then((data) => {
-            console.log(data.ip);
-            alert("DATA:" + data.ip);
-            ip = data.ip
-        });
-    console.log(ip);
-    return "http://" + ip + "/" + relativeUrl;
+function urlBuilder(relativeUrl) {
+    return "http://" + window.location.hostname + ":8080/" + relativeUrl;
 }
 
 function deleteEntity(url, responseFunction, dataFunction) {
@@ -26,8 +13,7 @@ function deleteEntity(url, responseFunction, dataFunction) {
 }
 
 async function httpCall(url,httpOptions, responseFunction, dataFunction){
-    let builded = await urlBuilder(url);
-    fetch(builded, httpOptions)
+    fetch(urlBuilder(url), httpOptions)
         .then((response) => responseFunction(response))
         .then((data) => dataFunction(data));
 }
