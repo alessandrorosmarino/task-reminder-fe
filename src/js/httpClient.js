@@ -1,6 +1,9 @@
-
-function urlBuilder(relativeUrl) {
-    return "http://localhost:8080/" + relativeUrl;
+async function urlBuilder(relativeUrl) {
+    let ip;
+    await fetch("../ip.json").then((response) => response.json())
+        .then((data) => ip = data.ip);
+    console.log(ip);
+    return "http://" + ip + "/" + relativeUrl;
 }
 
 function deleteEntity(url, responseFunction, dataFunction) {
@@ -13,8 +16,9 @@ function deleteEntity(url, responseFunction, dataFunction) {
     httpCall(url, httpOptions, responseFunction, dataFunction);
 }
 
-function httpCall(url,httpOptions, responseFunction, dataFunction){
-    fetch(urlBuilder(url), httpOptions)
+async function httpCall(url,httpOptions, responseFunction, dataFunction){
+    let builded = await urlBuilder(url);
+    fetch(builded, httpOptions)
         .then((response) => responseFunction(response))
         .then((data) => dataFunction(data));
 }
