@@ -10,12 +10,10 @@
         <button formmethod="dialog" >x</button>
       </form>
     </div>
-    <div class="days button-group-end">
-      <button v-for="weekday in weekdays" :key="weekday" v-bind:value="weekday.day" v-on:click="toggleDay(reminder,weekday.day)"
-            v-bind:class="getSuccessOrDangerButtonClass(weekday.scheduled.value)">
-        {{ weekday.placeholder }}
-      </button>
-    </div>
+
+    <GroupButton class="days" :items="weekdays" property-to-emit="day" value-property-name="day" key-property-name="day" text-property-name="placeholder"
+     button-group-position="end" :calculate-state-function="getSuccessOrDanger" calculate-state-property="scheduled" @clickEmission="toggleDay"></GroupButton>
+
     <div class="flex description">
       {{ reminder.reminderText }}
     </div>
@@ -29,6 +27,7 @@
 <script setup>
 import {defineProps, defineEmits, ref} from "vue";
 import {deleteReminder,updateReminder} from "@/js/reminderService";
+import GroupButton from "@/components/GroupButton";
 
 let props = defineProps({
   reminder: Object
@@ -68,7 +67,8 @@ function toggleDone(reminder) {
   }, () => null, json);
 }
 
-function toggleDay(reminder,day) {
+function toggleDay(day) {
+  let reminder = props.reminder;
   let found = reminder.reminderWeekday.find((weekday) => weekday === day);
   if(found !== undefined) {
     reminder.reminderWeekday = reminder.reminderWeekday.filter((weekday) => weekday !== day);
@@ -105,8 +105,8 @@ function setWeekdays(reminder) {
 function getSuccessOrDangerClass(control) {
   return (control ? "success" : "danger") + "-color";
 }
-function getSuccessOrDangerButtonClass(control) {
-  return "button-" + (control ? "success" : "danger");
+function getSuccessOrDanger(control) {
+  return control ? "success" : "danger";
 }
 </script>
 
